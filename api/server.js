@@ -13,23 +13,21 @@ const PORT = process.env.PORT || 3500;
 
 // Coonect to database
 connectDB();
-
-
-app.use(logger);
-
-// app.use(cors()); // open to the public
-app.use(cors(corsOptions)); //open to only whitelisted urls
-
-app.use(express.json());
-
-app.use(cookieParser());
-
 /*
- serve static files - html, css, images
+Middlewares
 */
+app.use(logger);
+app.use(cors(corsOptions));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(cookieParser());
 app.use('/', express.static(path.join(__dirname, 'public')))
 
+/*
+Routes
+*/
 app.use('/', require('./routes/root'));
+app.use('/users', require('./routes/userRoutes'))
 
 /*
 Handle 404
