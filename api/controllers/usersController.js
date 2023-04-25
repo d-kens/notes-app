@@ -70,7 +70,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
     if(!id || !username || !Array.isArray(roles) || !roles.length || typeof active !== 'boolean') {
         return res.status(400).json({
-            message: 'All fields are required'
+            message: 'all fields are required'
         })
     }
 
@@ -78,14 +78,14 @@ const updateUser = asyncHandler(async (req, res) => {
 
     if(!user) {
         return res.status(400).json({
-            message: 'User not found'
+            message: 'user not found'
         })
     }
 
     const duplicateUser = await User.findOne({ username }).lean().exec()
     if(duplicateUser && duplicateUser?._id.toString() !== id) {
         return res.status(409).json({
-            message: 'Duplicate username'
+            message: 'duplicate username'
         })
     }
 
@@ -117,7 +117,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     const note = await Note.findOne({ user: id}).lean().exec()
     if(note) {
         return res.status(400).json({
-            message: 'User has assigned note'
+            message: 'User has an assigned note'
         })
     }
 

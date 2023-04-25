@@ -3,10 +3,10 @@ const router = express.Router();
 const notesController = require('../controllers/notesController.js');
 
 router.route('/')
-    .get()
+    .get(notesController.getAllnotes)
     .post(notesController.createNewNote)
-    .patch()
-    .delete()
+    .patch(notesController.updateNote)
+    .delete(notesController.deleteNote)
 
 
 module.exports = router
