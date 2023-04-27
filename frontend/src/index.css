@@ -57,8 +57,8 @@
   visibility: hidden;
 }
 
-/* || GENERAL STYLES */
 
+/* || GENERAL STYLES */
 body {
   font-family: 'Nunito', sans-serif;
   min-height: 100vh;
@@ -98,22 +98,20 @@ a:focus-visible {
   color: var(--LINK-HOVER);
 }
 
-/* || PAGES */
-
-.public,
-.welcome {
+/* pages */
+.public, .welcome {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
 .public {
+  border: 2px solid green;
   padding: 1em;
   flex-grow: 1;
 }
 
-.public__main,
-.login {
+.public__main, .login {
   flex-grow: 1;
   border-top: 2px solid var(--BORDER-COLOR);
   border-bottom: 2px solid var(--BORDER-COLOR);
@@ -128,8 +126,7 @@ a:focus-visible {
   content: "➜ "
 }
 
-/* || DASH HEADER, CONTAINER & FOOTER */
-
+/* dash header, container and footer */
 .dash-header {
   position: sticky;
   top: 0;

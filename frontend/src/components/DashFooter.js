@@ -15,7 +15,7 @@ const DashFooter = () => {
         title='Home'
         onClick={onGoHomeClicked}
         >
-            <BsHouseFill />
+          <BsHouseFill />
         </button>
     )
   }
