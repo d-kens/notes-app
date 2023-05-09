@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom'
-
-import { useSelector } from 'react-redux'
-import { selectUserById } from './usersApiSlice'
+import { useNavigate } from 'react-router-dom';
+import { FaRegEdit } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import { selectUserById } from './usersApiSlice';
 
 const User = ({ userId }) => {
     const user = useSelector(state => selectUserById(state, userId))
@@ -24,7 +24,7 @@ const User = ({ userId }) => {
                         className="icon-button table__button"
                         onClick={handleEdit}
                     >
-                        del
+                        <FaRegEdit />
                     </button>
                 </td>
             </tr>
