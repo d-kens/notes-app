@@ -16,21 +16,21 @@ const NewUserForm = () => {
 
   const navigate = useNavigate();
 
-  const [ userName, setUserName ] = useState('');
-  const [ validUserName, setValidUserName ] = useState(false);
+  const [ username, setUsername ] = useState('');
+  const [ validUsername, setValidUsername ] = useState(false);
   const [ password, setPassword ] = useState('');
   const [ validPassword, setValidPassword ] = useState(false);
   const [ roles, setRoles ] = useState(["Employee"]);
 
   useEffect(() => {
-    setValidUserName(USER_REGEX.test(userName))
-  }, [userName])
+    setValidUsername(USER_REGEX.test(username))
+  }, [username])
 
   useEffect(() => {
     setValidPassword(PWD_REGEX.test(password))
   }, [password])
 
-  const onUsernameChanged = e => setUserName(e.target.value)
+  const onUsernameChanged = e => setUsername(e.target.value)
   const onPasswordChanged = e => setPassword(e.target.value)
   const onRolesChanged = e => {
     const values = Array.from(
@@ -41,15 +41,15 @@ const NewUserForm = () => {
   }
 
   const errClass = isError ? "errmsg" : "offscreen"
-  const validUserClass = !validUserName ? 'form__input--incomplete' : ''
+  const validUserClass = !validUsername ? 'form__input--incomplete' : ''
   const validPwdClass = !validPassword ? 'form__input--incomplete' : ''
   const validRolesClass = !Boolean(roles.length) ? 'form__input--incomplete' : ''
 
-  const canSave = [roles.length, validUserName, validPassword].every(Boolean) && !isLoading;
+  const canSave = [roles.length, validUsername, validPassword].every(Boolean) && !isLoading;
   const onSaveUserClicked = async (e) => {
     e.preventDefault()
     if (canSave) {
-        await addNewUser({ userName, password, roles })
+      await addNewUser({ username, password, roles })
     }
   }
 
@@ -88,7 +88,7 @@ const NewUserForm = () => {
             name="username"
             type="text"
             autoComplete="off"
-            value={userName}
+            value={username}
             onChange={ onUsernameChanged }
         />
 

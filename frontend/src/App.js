@@ -23,7 +23,7 @@ const App = () => {
                     </Route>
                     <Route path='users'>
                         <Route index element={<UserList />} />
-                        <Route path='newUSer' element={<NewUserForm />} />
+                        <Route path='newUser' element={<NewUserForm />} />
                     </Route>
                 </Route>
             </Route>
