@@ -51,6 +51,10 @@ const NewUserForm = () => {
     if (canSave) {
       await addNewUser({ username, password, roles })
     }
+
+    setUsername('');
+    setPassword('');
+    setRoles(['Employee']);
   }
 
   const options = Object.values(ROLES).map(role => {
