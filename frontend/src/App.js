@@ -7,6 +7,7 @@ import Welcome from './features/auth/Welcome';
 import NotesList from './features/notes/NotesList';
 import UserList from './features/users/UsersList';
 import NewUserForm from './features/users/NewUserForm';
+import EditUser from './features/users/EditUser';
 
 const App = () => {
     return (
@@ -23,6 +24,7 @@ const App = () => {
                     </Route>
                     <Route path='users'>
                         <Route index element={<UserList />} />
+                        <Route path=':id' element={<EditUser />} />
                         <Route path='newUser' element={<NewUserForm />} />
                     </Route>
                 </Route>

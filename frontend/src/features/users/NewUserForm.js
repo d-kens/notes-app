@@ -45,17 +45,22 @@ const NewUserForm = () => {
   const validPwdClass = !validPassword ? 'form__input--incomplete' : ''
   const validRolesClass = !Boolean(roles.length) ? 'form__input--incomplete' : ''
 
-  const canSave = [roles.length, validUsername, validPassword].every(Boolean) && !isLoading;
+  let canSave = [roles.length, validUsername, validPassword].every(Boolean) && !isLoading;
   const onSaveUserClicked = async (e) => {
     e.preventDefault()
     if (canSave) {
       await addNewUser({ username, password, roles })
     }
-
-    setUsername('');
-    setPassword('');
-    setRoles(['Employee']);
   }
+
+  useEffect(() => {
+    if(isSuccess) {
+      setUsername('');
+      setPassword('');
+      setRoles([]);
+      navigate('/dash/users');
+    }
+  }, [isSuccess, navigate])
 
   const options = Object.values(ROLES).map(role => {
     return (
