@@ -5,6 +5,8 @@ import Login from './features/auth/Login';
 import DashLayout from './components/DashLayout';
 import Welcome from './features/auth/Welcome';
 import NotesList from './features/notes/NotesList';
+import NewNote from './features/notes/NewNote';
+import EditNote from './features/notes/EditNote';
 import UserList from './features/users/UsersList';
 import NewUserForm from './features/users/NewUserForm';
 import EditUser from './features/users/EditUser';
@@ -23,6 +25,8 @@ const App = () => {
                         <Route index element={<Welcome />} />
                         <Route path='notes'>
                             <Route index element={<NotesList />} />
+                            <Route path=':id' element={<EditNote />} />
+                            <Route path='newNote' element={<NewNote />} />
                         </Route>
                         <Route path='users'>
                             <Route index element={<UserList />} />

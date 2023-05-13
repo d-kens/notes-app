@@ -17,9 +17,9 @@ const Prefetch = () => {
     const notes = store.dispatch(notesApiSlice.endpoints.getNotes.initiate())
 
     return () => {
-        console.log('unsubscribing');
-        users.unsubscribe();
-        notes.unsubscribe();
+      console.log('unsubscribing');
+      users.unsubscribe();
+      notes.unsubscribe();
     }
 
   }, [])
