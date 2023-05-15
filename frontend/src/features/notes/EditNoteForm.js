@@ -11,7 +11,6 @@ const EditNoteForm = ({ note, users }) => {
   }] = useUpdateNoteMutation();
 
   const [deleteNote, {
-    isLoading: isDelLoading,
     isSuccess: isDelSuccess,
     isError: isDelError,
     error: delError
@@ -21,25 +20,31 @@ const EditNoteForm = ({ note, users }) => {
 
   const [ title, setTitle ] = useState(note.title);
   const [ text, setText ] = useState(note.text);
-  const [ user, setUser ] = useState(note.user);
+  const [ userId, setUserId ] = useState(note.user);
   const [ completed, setCompleted ] = useState(note.completed)
 
   const onChangedTitle = e => setTitle(e.target.value);
   const onChangedText = e => setText(e.target.value);
-  const onChangedUser = e => setUser(e.target.value);
+  const onChangedUserId = e => setUserId(e.target.value);
   const onChangedCompleted = e => setCompleted(prev => !prev)
 
   const errClass = (isError || isDelError) ? "errmsg" : "offscreen";
-  /* null coalescing operator */
-  const errContent = (error?.data?.message || delError?.data?.message) ?? ''
+  const errContent = (error?.data?.message || delError?.data?.message) ?? '';
+  const validTitleClass = !title ? "form__input--incomplete" : '';
+  const validTextClass = !text ? "form__input--incomplete" : '';
+
+  const canSave = [title, text, userId].every(Boolean) && !isLoading
 
   const onSaveNoteClicked = async (e) => {
-    await updateNote({
-      id: note.id,
-      user,
-      title,
-      text,completed
-    })
+    if (canSave) {
+      await updateNote({
+        id: note.id,
+        user: userId,
+        title,
+        text,
+        completed
+      })
+    }
   }
 
   const onDeleteNoteClicked = async () => {
@@ -52,7 +57,7 @@ const EditNoteForm = ({ note, users }) => {
     if(isSuccess || isDelSuccess) {
       setTitle('');
       setText('');
-      setUser('')
+      setUserId('')
       setCompleted('')
       navigate('/dash/notes')
     }
@@ -78,24 +83,23 @@ const EditNoteForm = ({ note, users }) => {
         <div className="form__action-buttons">
           <button
             className="btn"
-            // disabled={!canSave}
+            disabled={!canSave}
             onClick={onSaveNoteClicked}
           >
             Edit
           </button>
           <button
             className="btn"
-            // disabled={!canSave}
             onClick={onDeleteNoteClicked}
           >
             Delete
           </button>
-                </div>
+        </div>
       </div>
 
       <label>title: </label>
       <input
-        className="form__input"
+        className={`form__input ${validTitleClass}`}
         id="title"
         name="title"
         type="text"
@@ -105,7 +109,7 @@ const EditNoteForm = ({ note, users }) => {
 
       <label>text: </label>
       <textarea
-        className="form__input"
+        className={`form__input ${validTextClass}`}
         id="text"
         name="text"
         rows="7"
@@ -129,8 +133,8 @@ const EditNoteForm = ({ note, users }) => {
       <select
         className="form__select"
         id="assignedTo"
-        value={ user }
-        onChange={ onChangedUser }
+        value={ userId }
+        onChange={ onChangedUserId }
       >
         { options }
       </select>

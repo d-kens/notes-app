@@ -14,31 +14,41 @@ const NewNoteForm = ({ users }) => {
 
   const [ title, setTitle ] = useState('');
   const [ text, setText ] = useState('');
-  const [ user, setUser ] = useState('');
+  const [ userId, setUserId ] = useState('');
 
   const onChangedTitle = e => setTitle(e.target.value);
   const onChangedText = e => setText(e.target.value);
-  const onChangedUser = e =>setUser(e.target.value);
+  const onChangedUserId = e =>setUserId(e.target.value);
+
+  const errClass = isError ? "errmsg" : "offscreen";
+  const validTitleClass = !title ? "form__input--incomplete" : ''
+  const validTextClass = !text ? "form__input--incomplete" : ''
+
+  
+  const canSave = [title, text, userId].every(Boolean) && !isLoading
 
   const onSaveNoteClicked = async (e) => {
+    console.log('clicked')
     e.preventDefault();
-    await addNewNote({
-      user,
-      title,
-      text
-    })
+    if (canSave){
+      await addNewNote({
+        userId,
+        title,
+        text
+      })
+    }
   }
 
   useEffect(() => {
     if(isSuccess) {
       setTitle('')
       setText('')
-      setUser('')
+      setUserId('')
       navigate('/dash/notes')
     }
   }, [isSuccess, navigate])
 
-  const errClass = isError ? "errmsg" : "offscreen"
+  
 
  
   const options = users.map(user => {
@@ -58,7 +68,8 @@ const NewNoteForm = ({ users }) => {
      >
       <div className="form__title-row">
         <h2>New Note</h2>
-        <button className="btn"
+        <button 
+          className="btn"
           // disabled={!canSave}
         >
           Add
@@ -67,7 +78,7 @@ const NewNoteForm = ({ users }) => {
 
       <label>title: </label>
       <input
-        className="form__input"
+        className={`form__input ${validTitleClass}`}
         id="title"
         name="title"
         type="text"
@@ -77,20 +88,20 @@ const NewNoteForm = ({ users }) => {
 
       <label>text: </label>
       <textarea
-        className="form__input"
+        className={`form__input ${validTextClass}`}
         id="text"
         name="text"
         rows="7"
         value={ text }
         onChange={ onChangedText }
-      ></textarea>
+      />
 
       <label>assigned to: </label>
       <select
         className="form__select"
         id="assignedTo"
-        value={ user }
-        onChange={ onChangedUser }
+        value={ userId }
+        onChange={ onChangedUserId }
       >
         { options }
       </select>
