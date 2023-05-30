@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import { FiLogOut } from "react-icons/fi"
+
 const DashHeader = () => {
   
   const content = (
